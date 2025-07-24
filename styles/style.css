@@ -87,50 +87,130 @@ h3 {
 /* Plant Lover */
 .plant-lover {
   display: flex;
-  gap: 30px;
-  padding: 30px;
   align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  width: 1140px;
+  height: 597px;
+}
+.lover-content {
+  width: 50%;
 }
 
 .lover-img {
-  position: relative;
+  position: relative; /* Needed for badge positioning */
+  width: 50%;
+}
+
+.lover-img img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  object-fit: cover;
 }
 
 .badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: gold;
-  padding: 5px 10px;
-  border-radius: 50px;
-  font-size: 12px;
+  top: -60px;
+  right: -50px;
+  width: 150px; /* Adjust size as needed */
+  height: 150px;
+  background: transparent;
+}
+
+.badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.lover-content h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: rgba(0, 0, 0, 1);
+}
+
+.lover-content ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 1.5;
+}
+
+.lover-content li {
+  margin-bottom: 10px;
 }
 
 /* Deals Section */
+
 .deals {
-  padding: 30px;
   text-align: center;
+  padding: 20px;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
+/* Grid Layout: First row (card1 + card3), Second row (card2 + card3) */
 .deal-cards {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Second column is twice as wide */
+  gap: 15px;
+  max-width: 1140px;
 }
 
-.deal-card {
-  background: #333;
+/* Card1 (top-left) */
+.deal-card1 {
+  grid-row: 1;
+  grid-column: 1;
+  background-image: url("../assets/deal-bloom.png");
+}
+
+/* Card2 (bottom-left) */
+.deal-card2 {
+  grid-row: 2;
+  grid-column: 1;
+  background-image: url("../assets/deal-ana.png");
+}
+
+/* Card3 (spans full right side) */
+.deal-card3 {
+  grid-row: 1 / 3; /* Spans both rows */
+  grid-column: 2; /* Takes the wider column */
+  background-image: url("../assets/deal-zabo.png");
+}
+
+/* Shared Card Styles */
+.deal-card1,
+.deal-card2,
+.deal-card3 {
   color: white;
   padding: 20px;
   border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  min-height: 180px; /* Adjust height as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Shop Now Button */
+.shop-now {
+  display: inline-block;
+  padding: 8px 16px;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 /* Join Section */
 .join {
-  background: url("https://i.ibb.co/dKBM40x/flowers-bg.jpg") no-repeat
-    center/cover;
+  background: url("../assets/news-letter-bg.png") no-repeat center/cover;
   padding: 60px 30px;
+  margin: 0 20px;
   text-align: center;
   color: white;
 }
@@ -153,7 +233,7 @@ h3 {
 /* Footer */
 footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 30px;
   background: #fff;
 }
@@ -173,7 +253,27 @@ footer {
 }
 
 /* Responsive Media Query */
+/* Responsive Media Query */
 @media screen and (max-width: 576px) {
+  /* Add this first to prevent horizontal overflow */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Make sure all containers stay within viewport */
+  .navbar,
+  .banner,
+  .plants,
+  .plant-lover,
+  .deals,
+  .join,
+  footer {
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+  }
+
   .nav-links li:not(.cart) {
     display: none;
   }
@@ -185,6 +285,8 @@ footer {
 
   .banner-image img {
     width: 100%;
+    max-width: 100%;
+    height: auto;
   }
 
   .plant-grid {
@@ -194,33 +296,66 @@ footer {
   .plant-lover {
     flex-direction: column;
     text-align: left;
+    width: 100%;
+    height: auto;
+    padding: 15px;
   }
 
   .badge {
-    display: none; /* hide trusted badge on mobile */
+    display: none;
   }
 
   .deal-cards {
-    flex-direction: column;
+    display: block;
+  }
+
+  .deal-card1,
+  .deal-card2,
+  .deal-card3 {
+    width: 100%;
+    margin-bottom: 15px;
+    min-height: 150px;
   }
 
   footer {
     flex-direction: column;
-    gap: 20px;
+    padding: 15px;
   }
 
   .footer-links {
     flex-direction: column;
+    display: block;
+    margin: 15px 0;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .join {
+    width: 100%;
+    margin: 0;
+    padding: 30px 15px;
+    box-sizing: border-box;
   }
 
   .join input {
     width: 80%;
     margin-bottom: 10px;
+    max-width: none;
   }
 
   .join form {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  /* Fix for plant cards */
+  .plant-card {
+    max-width: 100%;
+  }
+
+  /* Fix for images in footer */
+  .footer-right img {
+    margin: 5px;
   }
 }
